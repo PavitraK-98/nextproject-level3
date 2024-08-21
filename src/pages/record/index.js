@@ -26,9 +26,6 @@ const TABLE_HEAD = [
     id: 5,
     title: "Reference",
   },
-  {
-    id: 6,
-  },
 ];
 
 const EMP_HEAD = [
@@ -94,6 +91,7 @@ function Record() {
 
   useEffect(() => {
     fetchEmployee();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const handlePageChange = (pageNumber) => {
@@ -231,56 +229,58 @@ function Record() {
 
           <div className="px-4 py-4 flex justify-center items-center">
             <div className="container mx-auto rounded">
-              <table className="w-full min-w-max table-auto text-left border-2 border-slate-500 dark:border-slate-100">
-                <thead>
-                  <tr className="border-b-2 border-slate-500 dark:border-slate-100">
-                    {TABLE_HEAD.map((head) => (
-                      <th
-                        key={head.id}
-                        className="p-2 bg-gray-200 dark:bg-gray-900 border-r-2 border-slate-500 dark:border-slate-100"
-                      >
-                        <p className="font-bold text-black dark:text-white">
-                          {head.title}
-                        </p>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="overflow-y-auto max-h-80">
-                  {tableValues.map(
-                    ({ first, last, contact, address, reference }) => {
-                      return (
-                        <tr
-                          key={first}
-                          className="border-b-2 border-slate-500 dark:border-slate-100"
+              {tableValues.length === 0 ? (
+                <div className="flex justify-center border-2 border-gray-200 p-2 dark:border-gray-500">
+                  <p className="font text-xl text-black dark:text-white">
+                    Above submitted form values are displayed here
+                  </p>
+                </div>
+              ) : (
+                <table className="w-full min-w-max table-auto text-left border-2 border-slate-500 dark:border-slate-100">
+                  <thead>
+                    <tr className="border-b-2 border-slate-500 dark:border-slate-100">
+                      {TABLE_HEAD.map((head) => (
+                        <th
+                          key={head.id}
+                          className="p-2 bg-gray-200 dark:bg-gray-900 border-r-2 border-slate-500 dark:border-slate-100"
                         >
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
-                            <p className="font-medium">{first}</p>
-                          </td>
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
-                            <p className="font-medium">{last}</p>
-                          </td>
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
-                            <p className="font-medium">{contact}</p>
-                          </td>
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
-                            <p className="font-medium">{address}</p>
-                          </td>
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
-                            <p className="font-medium">{reference}</p>
-                          </td>
-                          <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2">
-                            <div className="flex flex-row space-x-2">
-                              <MdEdit style={{ fontSize: "1.4rem" }} />
-                              <MdDelete style={{ fontSize: "1.4rem" }} />
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </tbody>
-              </table>
+                          <p className="font-bold text-black dark:text-white">
+                            {head.title}
+                          </p>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="overflow-y-auto max-h-80">
+                    {tableValues.map(
+                      ({ first, last, contact, address, reference }) => {
+                        return (
+                          <tr
+                            key={first}
+                            className="border-b-2 border-slate-500 dark:border-slate-100"
+                          >
+                            <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
+                              <p className="font-medium">{first}</p>
+                            </td>
+                            <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
+                              <p className="font-medium">{last}</p>
+                            </td>
+                            <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
+                              <p className="font-medium">{contact}</p>
+                            </td>
+                            <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
+                              <p className="font-medium">{address}</p>
+                            </td>
+                            <td className="text-black dark:text-white bg-white dark:bg-gray-900 p-2 border-r-2 border-slate-500 dark:border-slate-100">
+                              <p className="font-medium">{reference}</p>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>
